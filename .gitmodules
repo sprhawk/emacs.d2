@@ -1,0 +1,3 @@
+[submodule "mode/vue-mode"]
+	path = mode/vue-mode
+	url = git@github.com:sprhawk/vue-mode.git

@@ -38,7 +38,7 @@ package-archive-priorities '(("melpa" . 1)))
  '(custom-enabled-themes (quote (tango-dark)))
  '(package-selected-packages
    (quote
-    (realgud php-mode git scss-mode vue-mode django-snippets django-mode sass-mode json-mode typescript-mode docker-compose-mode dockerfile-mode yaml-mode ensime ecb magit cargo company racer slime))))
+    (realgud php-mode git scss-mode django-snippets django-mode sass-mode json-mode typescript-mode docker-compose-mode dockerfile-mode yaml-mode ensime ecb magit cargo company racer slime))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -67,8 +67,12 @@ package-archive-priorities '(("melpa" . 1)))
 
 (require 'django-html-mode)
 (require 'django-mode)
-
 (add-to-list 'auto-mode-alist '("\\.dhtml$" . django-html-mode))
+
+(add-to-list `load-path "~/.emacs.d/mode/vue-mode")
+(autoload 'vue-mode "vue-mode" nil t)
+(add-to-list 'auto-mode-alist '("\\.vue$" . vue-mode))
+
 
 (global-set-key (kbd "C-x C-\\") 'set-input-method)
 (define-key key-translation-map (kbd "C-c p") (kbd "π"))

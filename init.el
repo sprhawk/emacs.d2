@@ -80,4 +80,4 @@ package-archive-priorities '(("melpa" . 1)))
 (define-key key-translation-map (kbd "C-c d") (kbd "̣Δ"))
 
 (setq-default indent-tabs-mode nil)
-(setq-default tab-width 8)
+(setq-default tab-width 4)

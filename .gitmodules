@@ -1,3 +1,6 @@
 [submodule "mode/vue-mode"]
 	path = mode/vue-mode
 	url = git@github.com:sprhawk/vue-mode.git
+[submodule "mode/rust-mode"]
+	path = mode/rust-mode
+	url = git@github.com:rust-lang/rust-mode.git

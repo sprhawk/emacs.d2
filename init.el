@@ -12,19 +12,33 @@
     ;; For important compatibility libraries like cl-lib
     (add-to-list 'package-archives '("gnu" . (concat proto "://elpa.gnu.org/packages/")))))
 
-(require 'package)
 (setq
-package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+ package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
                     ("org" . "http://orgmode.org/elpa/")
                     ("melpa" . "http://melpa.org/packages/")
                     ("melpa-stable" . "http://stable.melpa.org/packages/"))
-package-archive-priorities '(("melpa" . 1)))
+ package-archive-priorities '(("melpa" . 1)))
 
 (package-initialize)
 (when (not package-archive-contents)
   (package-refresh-contents)
   (package-install 'use-package))
+
 (require 'use-package)
+
+;; (use-package elpy
+;;   :ensure t
+;;   :defer t
+;;   :init
+;;   (advice-add 'python-mode :before 'elpy-enable))
+
+;; don't know how to enable flycheck-mode with above method, so enable right now
+(elpy-enable)
+
+(when (require 'flycheck nil t)
+  (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+  (add-hook 'elpy-mode-hook 'flycheck-mode))
+
 
 (use-package ensime
 	     :ensure t
@@ -38,7 +52,7 @@ package-archive-priorities '(("melpa" . 1)))
  '(custom-enabled-themes (quote (tango-dark)))
  '(package-selected-packages
    (quote
-    (realgud php-mode git scss-mode django-snippets django-mode sass-mode json-mode typescript-mode docker-compose-mode dockerfile-mode yaml-mode ensime ecb magit cargo company racer slime))))
+    (web-mode jinja2-mode flycheck elpy realgud php-mode git scss-mode django-snippets django-mode sass-mode json-mode typescript-mode docker-compose-mode dockerfile-mode yaml-mode ensime ecb magit cargo company racer slime))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -65,9 +79,31 @@ package-archive-priorities '(("melpa" . 1)))
 
 (global-display-line-numbers-mode)
 
-(require 'django-html-mode)
+;; (require 'django-html-mode)
 (require 'django-mode)
-(add-to-list 'auto-mode-alist '("\\.dhtml$" . django-html-mode))
+;; (add-to-list 'auto-mode-alist '("\\.dhtml$" . django-html-mode))
+
+(require 'web-mode)
+(add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
+(setq web-mode-engines-alist
+      '(("django" . "\\.html\\'")))
+        
+
+(add-hook 'web-mode-hook
+          (lambda() (local-set-key (kbd "C-c /") #'web-mode-element-close)))
+
+(add-hook 'elpy-mode-hook  ;; C-c C-/ is interpreted in emacs as C-c C-_
+          (lambda() (local-set-key (kbd "C-c C-_") #'comment-region)))
+
+;; (setq jedi:environment-root "jedi")
+;; (setq jedi:environment-virtualenv
+;;       (append python-environment-virtualenv
+;;               '("--python" "/usr/local/bin/python3")))
+
+;; (add-hook 'python-mode-hook 'jedi:setup)
+;; (add-hook 'django-mode 'jedi:setup)
+;; (setq jedi:complete-on-dot t)
 
 (add-to-list `load-path "~/.emacs.d/mode/vue-mode")
 (autoload 'vue-mode "vue-mode" nil t)
@@ -81,3 +117,10 @@ package-archive-priorities '(("melpa" . 1)))
 
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
+
+(when (executable-find "ipython")
+  (setq python-shell-interpreter "ipython")
+  (setq python-shell-interpreter-args "-i --simple-prompt"))
+
+(global-set-key (kbd "C-x g") 'magit-status)
+

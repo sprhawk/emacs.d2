@@ -94,7 +94,7 @@
           (lambda() (local-set-key (kbd "C-c /") #'web-mode-element-close)))
 
 (add-hook 'elpy-mode-hook  ;; C-c C-/ is interpreted in emacs as C-c C-_
-          (lambda() (local-set-key (kbd "C-c C-_") #'comment-region)))
+          (lambda() (local-set-key (kbd "C-c C-_") #'comment-or-uncomment-region)))
 
 ;; (setq jedi:environment-root "jedi")
 ;; (setq jedi:environment-virtualenv

@@ -116,6 +116,8 @@
 
 
 (global-set-key (kbd "C-x C-\\") 'set-input-method)
+(global-set-key (kbd "C-x v") 'view-buffer)
+
 (define-key key-translation-map (kbd "C-c p") (kbd "π"))
 (define-key key-translation-map (kbd "C-c a") (kbd "α"))
 (define-key key-translation-map (kbd "C-c d") (kbd "̣Δ"))

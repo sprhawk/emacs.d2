@@ -52,7 +52,7 @@
  '(custom-enabled-themes (quote (tango-dark)))
  '(package-selected-packages
    (quote
-    (web-mode jinja2-mode flycheck elpy realgud php-mode git scss-mode django-snippets django-mode sass-mode json-mode typescript-mode docker-compose-mode dockerfile-mode yaml-mode ensime ecb magit cargo company racer slime))))
+    (julia-mode web-mode jinja2-mode flycheck elpy realgud php-mode git scss-mode django-snippets django-mode sass-mode json-mode typescript-mode docker-compose-mode dockerfile-mode yaml-mode ensime ecb magit cargo company racer slime))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -95,6 +95,8 @@
 
 (add-hook 'elpy-mode-hook  ;; C-c C-/ is interpreted in emacs as C-c C-_
           (lambda() (local-set-key (kbd "C-c C-_") #'comment-or-uncomment-region)))
+(require 'julia-mode)
+(add-to-list 'auto-mode-alist '("\\.jl\\'" . julia-mode))
 
 ;; (setq jedi:environment-root "jedi")
 ;; (setq jedi:environment-virtualenv

@@ -117,7 +117,7 @@
 
 (add-to-list `load-path "~/.emacs.d/mode")
 (autoload 'verilog-mode "verilog-mode" nil t)
-(add-to-list 'auto-mode-alist '("\\.vl$" . verilog-mode))
+(add-to-list 'auto-mode-alist '("\\.vl?$" . verilog-mode))
 
 (global-set-key (kbd "C-x C-\\") 'set-input-method)
 (global-set-key (kbd "C-x v") 'view-buffer)

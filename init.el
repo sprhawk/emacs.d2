@@ -96,6 +96,7 @@
 (require 'julia-mode)
 (add-to-list 'auto-mode-alist '("\\.jl\\'" . julia-mode))
 
+(add-to-list 'auto-mode-alist '("\\.m\\'" . octave-mode))
 ;; (add-hook 'elpy-mode-hook  ;; C-c C-/ is interpreted in emacs as C-c C-_
 ;;           (lambda() (local-set-key (kbd "C-c C-_") #'comment-or-uncomment-region)))
 
@@ -114,6 +115,9 @@
 (autoload 'vue-mode "vue-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.vue$" . vue-mode))
 
+(add-to-list `load-path "~/.emacs.d/mode")
+(autoload 'verilog-mode "verilog-mode" nil t)
+(add-to-list 'auto-mode-alist '("\\.vl$" . verilog-mode))
 
 (global-set-key (kbd "C-x C-\\") 'set-input-method)
 (global-set-key (kbd "C-x v") 'view-buffer)

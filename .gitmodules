@@ -4,3 +4,6 @@
 [submodule "mode/rust-mode"]
 	path = mode/rust-mode
 	url = git@github.com:rust-lang/rust-mode.git
+[submodule "mode/bb-mode"]
+	path = mode/bb-mode
+	url = git@github.com:mferland/bb-mode.git

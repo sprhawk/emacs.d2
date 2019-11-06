@@ -152,6 +152,7 @@
 (require 'julia-repl)
 (add-hook 'julia-mode-hook 'julia-repl-mode) ;; always use minor mode
 
+
 (add-to-list 'auto-mode-alist '("\\.m\\'" . octave-mode))
 ;; (add-hook 'elpy-mode-hook  ;; C-c C-/ is interpreted in emacs as C-c C-_
 ;;           (lambda() (local-set-key (kbd "C-c C-_") #'comment-or-uncomment-region)))
@@ -186,6 +187,15 @@
 (add-to-list `load-path "~/.emacs.d/mode")
 (autoload 'verilog-mode "verilog-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.vl?$" . verilog-mode))
+
+(add-to-list `load-path "~/.emacs.d/mode/bb-mode")
+(autoload 'bb-mode "bb-mode" nil t)
+(require 'bb-mode)
+(add-to-list 'auto-mode-alist '("\\.bb$" . bb-mode))
+(add-to-list 'auto-mode-alist '("\\.inc$" . bb-mode))
+(add-to-list 'auto-mode-alist '("\\.bbappend$" . bb-mode))
+(add-to-list 'auto-mode-alist '("\\.bbclass$" . bb-mode))
+(add-to-list 'auto-mode-alist '("\\.conf$" . bb-mode))
 
 (global-set-key (kbd "C-x C-\\") 'set-input-method)
 (global-set-key (kbd "C-x v") 'view-buffer)

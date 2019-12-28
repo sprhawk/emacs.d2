@@ -26,14 +26,14 @@
 
 (require 'use-package)
 
-;; (use-package elpy
-;;   :ensure t
-;;   :defer t
-;;   :init
-;;   (advice-add 'python-mode :before 'elpy-enable))
+(use-package elpy
+  :ensure t
+  :defer t
+  :init
+  (advice-add 'python-mode :before 'elpy-enable))
 
 ;; don't know how to enable flycheck-mode with above method, so enable right now
-(elpy-enable)
+;; (elpy-enable)
 
 (when (require 'flycheck nil t)
   (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
@@ -115,47 +115,67 @@
  )
 (setq inferior-lisp-program "sbcl")
 
-;; (add-to-list 'load-path "~/.emacs.d/mode/rust-mode")
-;; (autoload 'rust-mode "rust-mode" nil t)
-;; (add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
-(setq rust-format-on-save t)
 
-(add-hook 'rust-mode-hook #'racer-mode)
-(add-hook 'racer-mode-hook #'eldoc-mode)
-
-(add-hook 'racer-mode-hook #'company-mode)
-
-(require 'rust-mode)
-(define-key rust-mode-map (kbd "TAB") #'company-indent-or-complete-common)
-(setq company-tooltip-align-annotations t)
+;; (use-package rust
+;;   :ensure t
+;;   :init
+;;   ((setq rust-format-on-save t))
+;;   :hook
+;;   ((rust-mode . racer-mode)
+;;    (racer-mode . eldoc-mode)
+;;    (racer-mode . company-mode)
+;;    )
+;;   )
 
 (global-set-key (kbd "C-x g") 'magit-status)
 
 (global-display-line-numbers-mode)
 
-;; (require 'django-html-mode)
-(require 'django-mode)
-;; (add-to-list 'auto-mode-alist '("\\.dhtml$" . django-html-mode))
+;; (require 'django-mode)
 
-(require 'web-mode)
-(add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
-(setq web-mode-engines-alist
-      '(("django" . "\\.html\\'")))
-        
+(use-package django-mode
+  :ensure t)
 
-(add-hook 'web-mode-hook
-          (lambda() (local-set-key (kbd "C-c /") #'web-mode-element-close)))
+;; (require 'web-mode)
+;; (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
+;; (add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
+;; (setq web-mode-engines-alist
+;;       '(("django" . "\\.html\\'")))
+;; (add-hook 'web-mode-hook
+;;           (lambda() (local-set-key (kbd "C-c /") #'web-mode-element-close)))
+(use-package web-mode
+  :ensure t
+  :mode ("\\.html\\'"
+         "\\.djhtml\\'")
+  :init
+  (setq web-mode-engines-alist
+        '(("django" . "\\.html\\'")))
+  (add-hook 'web-mode-hook
+            (lambda() (local-set-key (kbd "C-c /") #'web-mode-element-close)))
+  )
 
-(require 'julia-mode)
-(add-to-list 'auto-mode-alist '("\\.jl\\'" . julia-mode))
-(require 'julia-repl)
-(add-hook 'julia-mode-hook 'julia-repl-mode) ;; always use minor mode
+
+(use-package julia-mode
+  :ensure t
+  :mode ("\\.jl\\'")
+  )
+(use-package julia-repl
+  :ensure t
+  :hook ((julia-mode julia-repl-mode))
+  )
+
+;; (add-to-list 'auto-mode-alist '("\\.jl\\'" . julia-mode))
+;; (require 'julia-repl)
+;; (add-hook 'julia-mode-hook 'julia-repl-mode) ;; always use minor mode
 
 
-(add-to-list 'auto-mode-alist '("\\.m\\'" . octave-mode))
+;; (add-to-list 'auto-mode-alist '("\\.m\\'" . octave-mode))
 ;; (add-hook 'elpy-mode-hook  ;; C-c C-/ is interpreted in emacs as C-c C-_
 ;;           (lambda() (local-set-key (kbd "C-c C-_") #'comment-or-uncomment-region)))
+(use-package octave-mode
+  :ensure t
+  :mode ("\\.m\\'")
+  )
 
 (defun setup-tide-mode ()
   (interactive)
@@ -179,6 +199,17 @@
 ;; (add-hook 'python-mode-hook 'jedi:setup)
 ;; (add-hook 'django-mode 'jedi:setup)
 ;; (setq jedi:complete-on-dot t)
+
+;; using local version
+(add-to-list 'load-path "~/.emacs.d/mode/rust-mode")
+(autoload 'rust-mode "rust-mode" nil t)
+(add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
+
+
+(add-hook 'rust-mode-hook #'racer-mode)
+(add-hook 'racer-mode-hook #'eldoc-mode)
+(add-hook 'racer-mode-hook #'company-mode)
+(require 'rust-mode)
 
 (add-to-list `load-path "~/.emacs.d/mode/vue-mode")
 (autoload 'vue-mode "vue-mode" nil t)

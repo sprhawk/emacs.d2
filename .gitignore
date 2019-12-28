@@ -4,3 +4,6 @@
 **/*.pyc
 elpa/archives
 *.dat
+elpa
+elpa-bak
+\#*\#

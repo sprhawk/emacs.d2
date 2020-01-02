@@ -1,10 +1,7 @@
 *~
-# elpa
 **/*.elc
 **/*.pyc
-elpa/archives
 *.dat
 elpa
-elpa-bak
 \#*\#
 elpy
